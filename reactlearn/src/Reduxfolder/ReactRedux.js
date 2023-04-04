@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import { connect } from 'react-redux'
+import {add,minus,asyncAdd} from './count.redux'
 
 // //return data function, for connect. connect will convert data to props
 // const mapStateToProps=(state)=>{
@@ -24,20 +25,22 @@ import { connect } from 'react-redux'
     //     }
     // }
     state=>({count:state}),
+    {add,minus,asyncAdd}
     // dispatch=>({
     //     add:()=>dispatch({type:'add'}),
     //     minus:()=>dispatch({type:'minus'}),
     // })
-    {
-        add:()=>({type:'add'}),
-        minus:()=>({type:'minus'}),
-        asyncAdd:()=>dispatch=>{
-            setTimeout(()=>{
-                dispatch({type:'add'})
-        },2000)
+
+    // {
+    //     add:()=>({type:'add'}),
+    //     minus:()=>({type:'minus'}),
+    //     asyncAdd:()=>dispatch=>{
+    //         setTimeout(()=>{
+    //             dispatch({type:'add'})
+    //     },2000)
             
-        }
-    }
+    //     }
+    // }
 )
 
 

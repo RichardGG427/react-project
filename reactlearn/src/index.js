@@ -9,9 +9,15 @@ import ReactDOM from "react-dom";
 // import Context1 from "./HOC/Context1.js"
 // import Context2 from "./HOC/Context2.js"
 // import FirstRedux from "./Reduxfolder/FirstRedux";
-import store from "./Reduxfolder/store";
-import { Provider } from "react-redux";
-import ReactRedux from "./Reduxfolder/ReactRedux";
+// npm install react-router-dom
+// import { Provider } from "react-redux";
+// import ReactRedux from "./Reduxfolder/ReactRedux";
+// import { createStore, applyMiddleware } from 'redux'
+// import logger from 'redux-logger'
+// import thunk from 'redux-thunk'
+// import { firstReducer } from "./Reduxfolder/count.redux";
+
+import RouterSample from "./ReactRouter/RouterSample";
 
 // ReactDOM.render(<App></App>,document.getElementById('root'))
 //Demonstrate lifecycle
@@ -48,5 +54,14 @@ import ReactRedux from "./Reduxfolder/ReactRedux";
 // render();
 
 // store.subscribe(render);
-ReactDOM.render(<Provider store={store}><ReactRedux></ReactRedux></Provider>,document.getElementById("root")
+
+// const store = createStore(firstReducer, applyMiddleware(thunk,logger))
+// ReactDOM.render(<Provider store={store}><ReactRedux></ReactRedux></Provider>,document.getElementById("root")
+// );
+
+
+//show of react router
+ReactDOM.render(
+  <RouterSample></RouterSample>,
+  document.getElementById("root")
 );
