@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter, Link, Route, Switch, Redirect } from "react-router-dom";
+import { connect, Provider } from "react-redux";
+import store from "../Reduxfolder";
+import { login } from "../Reduxfolder/user.redux";
 
 function App() {
   return (
@@ -38,6 +41,7 @@ function App() {
 }
 
 //write router guard to control authority
+@connect((state) => ({ isLogin: state.user.isLogin }))
 class RouteGuard extends Component {
   // state={
   //     isLogin:true
@@ -48,7 +52,7 @@ class RouteGuard extends Component {
       <Route
         {...otherProps}
         render={(props) =>
-          auth.isLogin ? (
+          this.props.isLogin ? (
             <Component {...props}></Component>
           ) : (
             <Redirect
@@ -64,40 +68,42 @@ class RouteGuard extends Component {
   }
 }
 
+@connect((state) => ({ isLogin: state.user.isLogin }), { login })
 //login page
 class Login extends Component {
-  state = {
-    isLogin: false,
-  };
-  login = () => {
-    auth.login(() => {
-      this.setState({
-        isLogin: true,
-      });
-    });
-  };
+//   state = {
+//     isLogin: false,
+//   };
+//   login = () => {
+//     auth.login(() => {
+//       this.setState({
+//         isLogin: true,
+//       });
+//     });
+//   };
   render() {
-    const from = (this.props.location.state&&this.props.location.state.from) || "./";
-    if (this.state.isLogin) {
+    const from =
+      (this.props.location.state && this.props.location.state.from) || "./";
+    if (this.props.isLogin) {
       return <Redirect to={from}></Redirect>;
     }
     return (
       <div>
         <p>Please Login first</p>
-        <button onClick={this.login}>login</button>
+        <button onClick={this.props.login}>login</button>
       </div>
     );
   }
 }
 
-//mock api
-const auth = {
-  isLogin: false,
-  login(callback) {
-    this.isLogin = true;
-    setTimeout(callback, 1000);
-  },
-};
+// //mock api
+// const auth = {
+//   isLogin: false,
+//   login(callback) {
+//     this.isLogin = true;
+//     setTimeout(callback, 1000);
+//   },
+// };
 
 //detail page
 function Detail({ match, location, history }) {
@@ -183,7 +189,9 @@ export default function RouterSample() {
     <div>
       <h1>show of React Router 4.*</h1>
       <BrowserRouter>
-        <App></App>
+        <Provider store={store}>
+          <App></App>
+        </Provider>
       </BrowserRouter>
     </div>
   );
